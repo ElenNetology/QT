@@ -5,7 +5,9 @@
 #include "stopwatch.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -16,20 +18,20 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+signals:
+
+    void sig_circleTime();
+    void sig_clearTime();
+
 private slots:
-    void on_pb_startStop_clicked();
+
+    void rcv_updateTime(QString text);
+    void on_pb_start_stop_clicked();
+    void on_pb_circle_clicked();
     void on_pb_clear_clicked();
-    void on_pb_lap_clicked();
-
-    void RcvSignalShowTime();
-    void RcvSignalStart();
-    void RcvSignalStop();
-    void RcvSignalClear();
-    void RcvSignalLap();
-
 
 private:
     Ui::MainWindow *ui;
-    Stopwatch* sw;
+    Stopwatch *sw;
 };
 #endif // MAINWINDOW_H

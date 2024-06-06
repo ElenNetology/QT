@@ -1,74 +1,55 @@
 #include "stopwatch.h"
+#include <QTimer>
 
 Stopwatch::Stopwatch(QObject *parent)
     : QObject{parent}
 {
-    isStart_ = false;
-    currentTime_ = 0.;
-    startTime_ = 0.;
-    currentLap_ = 1;
-    qTimer = new QTimer(this);
+
+    time.setHMS(0, 0, 0, 0);
+    stopTime.setHMS(0, 0, 0, 0);
+    circleTime = 0;
+    count = 1;
+
+    timer = new QTimer(this);
+    timer->setInterval(100);
+    connect(timer, &QTimer::timeout, this, &Stopwatch::updateTime);
+
 }
 
-void Stopwatch::Start()
+Stopwatch::~Stopwatch()
 {
-    isStart_ = true;
-    qTimer->start(100);
-    emit sig_Start();
+    delete timer;
 }
 
-void Stopwatch::Stop()
+void Stopwatch::updateTime()
 {
-    isStart_ = false;
-    qTimer->stop();
-    emit sig_Stop();
+    time = time.addMSecs(100);
+    strCurrentTime = time.toString("mm.ss");
+    emit sig_updateTime(strCurrentTime);
 }
 
-void Stopwatch::Clear()
+void Stopwatch::startTimer()
 {
-    currentTime_ = 0.;
-    startTime_ = 0.;
-    currentLap_ = 1;
-    emit sig_Clear();
+    timer->start();
+    updateTime();
 }
 
-void Stopwatch::Lap()
+void Stopwatch::stopTimer()
 {
-    emit sig_Lap();
+    timer->stop();
 }
 
-void Stopwatch::setTime(float time)
+void Stopwatch::rcv_circleTime()
 {
-    currentTime_ = time;
+    circleTime = stopTime.secsTo(time);
+    strCircleTime = "Круг " + QString::number(count) + " , время: " + QString::number(circleTime) + " сек";
+    stopTime = time;
+    count++;
 }
 
-void Stopwatch::setLap(int lap)
+void Stopwatch::rcv_clearTime()
 {
-    currentLap_ = lap;
-}
-
-float Stopwatch::getCurrentTime()
-{
-    return currentTime_;
-}
-
-float Stopwatch::getStartTime()
-{
-    return startTime_;
-}
-
-int Stopwatch::getCurrentLap()
-{
-    startTime_ = currentTime_;
-    return currentLap_;
-}
-
-bool Stopwatch::isStart()
-{
-    return isStart_;
-}
-
-QTimer *Stopwatch::getQTimer()
-{
-    return qTimer;
+    count = 1;
+    time.setHMS(0, 0, 0, 0);
+    stopTime.setHMS(0, 0, 0, 0);
 }

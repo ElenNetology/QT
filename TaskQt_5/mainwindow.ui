@@ -6,51 +6,131 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>502</width>
-    <height>468</height>
+    <width>490</width>
+    <height>407</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Секундомер</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="1" colspan="3">
-     <widget class="QTextBrowser" name="tb_laps"/>
-    </item>
-    <item row="4" column="1">
-     <widget class="QPushButton" name="pb_clear">
-      <property name="text">
-       <string>PushButton</string>
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="gB_disp">
+      <property name="title">
+       <string>Секундомер</string>
       </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QPushButton" name="pb_lap">
-      <property name="text">
-       <string>PushButton</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="2">
-     <widget class="QPushButton" name="pb_startStop">
-      <property name="text">
-       <string>PushButton</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLabel" name="l_showTime">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="l_time">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
+      <widget class="QLabel" name="lb_time">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>211</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Sitka Display</family>
+         <pointsize>14</pointsize>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Sitka Display&quot;;</string>
+       </property>
+       <property name="text">
+        <string>00.00</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_start_stop">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>280</y>
+         <width>161</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_circle">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>280</y>
+         <width>111</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_clear">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>280</y>
+         <width>131</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+      <widget class="QTextBrowser" name="tB_circles">
+       <property name="geometry">
+        <rect>
+         <x>19</x>
+         <y>139</y>
+         <width>437</width>
+         <height>121</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>11</pointsize>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(243, 243, 243);
+background-color: qlineargradient(spread:pad, x1:0.983, y1:0.972, x2:0.0284091, y2:0.034, stop:0 rgba(185, 207, 200, 255), stop:1 rgba(255, 255, 255, 255));
+color: rgb(0, 0, 0);
+font: 11pt &quot;Segoe UI&quot;;</string>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <property name="autoFormatting">
+        <set>QTextEdit::AutoAll</set>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -60,14 +140,30 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>502</width>
-     <height>17</height>
+     <width>490</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pb_clear</sender>
+   <signal>clicked()</signal>
+   <receiver>tB_circles</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>383</x>
+     <y>180</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>277</x>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
-

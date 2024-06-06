@@ -2,49 +2,45 @@
 #define STOPWATCH_H
 
 #include <QObject>
+#include <QWidget>
 #include <QTimer>
 #include <QTime>
+#include <QDebug>
 
 class Stopwatch : public QObject
 {
     Q_OBJECT
+
 public:
+
+    QString strCurrentTime;
+    QString strCircleTime;
+
     explicit Stopwatch(QObject *parent = nullptr);
-    // Запустить секундомер
-    void Start();
-    // Остановить секундомер
-    void Stop();
-    // Очистить секундомер
-    void Clear();
-    // Количество кругов
-    void Lap();
-    // Установить время
-    void setTime(float time);
-    // Установить круг
-    void setLap(int lap);
-    // Получить текущее время
-    float getCurrentTime();
-    // Получить начальное время
-    float getStartTime();
-    // Получить текущий круг
-    int getCurrentLap();
-    // Проверить, запущен ли секундомер
-    bool isStart();
-    //Получить адрес qTimer
-    QTimer* getQTimer();
+
+    ~Stopwatch();
+
+    void updateTime();
+    void startTimer();
+    void stopTimer();
+
+public slots:
+
+    void rcv_circleTime();
+    void rcv_clearTime();
 
 signals:
-    void sig_Start();
-    void sig_Stop();
-    void sig_Clear();
-    void sig_Lap();
+
+    void sig_updateTime(QString &strCurrentTime);
 
 private:
-    bool isStart_; // флаг работы секундомера
-    float currentTime_; // текущее время
-    float startTime_; // время от начала работы круга
-    int currentLap_; // текущий круг
-    QTimer* qTimer;
+
+    QTimer *timer;
+    QTime time;
+    QTime stopTime;
+    int circleTime;
+    int count;
+
 };
 
 #endif // STOPWATCH_H
