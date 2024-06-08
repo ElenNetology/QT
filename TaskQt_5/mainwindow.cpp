@@ -47,13 +47,15 @@ void MainWindow::on_pb_start_stop_clicked()
 
 void MainWindow::on_pb_circle_clicked()
 {
-    emit sig_circleTime();
+    //emit sig_circleTime();
+    sw->rcv_circleTime();
     QString text = sw->strCircleTime;
     ui->tB_circles->append(text);
 }
 
 void MainWindow::on_pb_clear_clicked()
 {
-    ui->lb_time->setText("00.00");
-    emit sig_clearTime();
+    ui->lb_time->setText("00:00.0");
+    sw->rcv_clearTime();
+    //emit sig_clearTime();
 }

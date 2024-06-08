@@ -24,7 +24,7 @@ Stopwatch::~Stopwatch()
 void Stopwatch::updateTime()
 {
     time = time.addMSecs(100);
-    strCurrentTime = time.toString("mm.ss");
+    strCurrentTime = time.toString("mm:ss.z");
     emit sig_updateTime(strCurrentTime);
 }
 
